@@ -1,0 +1,19 @@
+{
+	"name": "Clock",
+	"plugin-id": "Text",
+	"sid": 418032356681785,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Tween",
+			"name": "Tween",
+			"sid": 709865467580234
+		}
+	],
+	"effectTypes": [],
+	"members": [
+		"countMinutes",
+		"countSeconds",
+		"txtSeparator"
+	]
+}

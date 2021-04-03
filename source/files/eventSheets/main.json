@@ -1,0 +1,1155 @@
+{
+	"name": "Main",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "Status",
+			"type": "string",
+			"initialValue": "STOP",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 466981544474495
+		},
+		{
+			"eventType": "variable",
+			"name": "TimerDuration",
+			"type": "number",
+			"initialValue": "1500",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 556903616174518
+		},
+		{
+			"eventType": "variable",
+			"name": "Y_Play",
+			"type": "number",
+			"initialValue": "90",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 276373357376091
+		},
+		{
+			"eventType": "variable",
+			"name": "Y_Stop",
+			"type": "number",
+			"initialValue": "72",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 684005118935995
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "POMODORO",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "POMODORO :: Clock",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "every-tick",
+									"objectClass": "System",
+									"sid": 505471554212400
+								}
+							],
+							"actions": [],
+							"sid": 163048920657344,
+							"children": [
+								{
+									"eventType": "variable",
+									"name": "TimeToPause",
+									"type": "number",
+									"initialValue": "0",
+									"comment": "",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 587286250922236
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 806201170849109,
+											"parameters": {
+												"variable": "Status",
+												"comparison": 1,
+												"value": "\"STOP\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"type": "script",
+											"script": "localVars.TimeToPause = (runtime.globalVars.TimerDuration * 1000) - Globals.milliseconds;"
+										}
+									],
+									"sid": 486538131008813
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 674403976834856
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 434515578665131,
+											"parameters": {
+												"variable": "TimeToPause",
+												"value": "TimerDuration*1000"
+											}
+										}
+									],
+									"sid": 119830228918298
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "countSeconds",
+											"sid": 375605794431383,
+											"parameters": {
+												"text": "zeropad(Date.ToTimerSeconds(TimeToPause), 2)"
+											}
+										},
+										{
+											"id": "set-text",
+											"objectClass": "countMinutes",
+											"sid": 441711104778452,
+											"parameters": {
+												"text": "Date.ToTimerMinutes(TimeToPause)"
+											}
+										}
+									],
+									"sid": 359439408265357
+								}
+							]
+						}
+					],
+					"sid": 601280430258227
+				},
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "POMODORO :: Controls",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-object-clicked",
+									"objectClass": "Mouse",
+									"sid": 106853303024117,
+									"parameters": {
+										"mouse-button": "left",
+										"click-type": "clicked",
+										"object-clicked": "btnStart"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "btnStart",
+									"sid": 581828204625385,
+									"parameters": {
+										"instance-variable": "FontSize",
+										"value": "28"
+									}
+								}
+							],
+							"sid": 176290656300905,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 195512473552026,
+											"parameters": {
+												"variable": "Status",
+												"comparison": 0,
+												"value": "\"STOP\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 661815104039111,
+											"parameters": {
+												"variable": "Status",
+												"value": "\"PLAY\""
+											}
+										},
+										{
+											"callFunction": "Pomodoro_TimerControl",
+											"sid": 451687927279590,
+											"parameters": [
+												"\"START\""
+											]
+										}
+									],
+									"sid": 161862073063537
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 772534335388337
+										},
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 500481507440110,
+											"parameters": {
+												"variable": "Status",
+												"comparison": 0,
+												"value": "\"PAUSE\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 642400084064756,
+											"parameters": {
+												"variable": "Status",
+												"value": "\"PLAY\""
+											}
+										},
+										{
+											"callFunction": "Pomodoro_TimerControl",
+											"sid": 472926825442173,
+											"parameters": [
+												"\"RESUME\""
+											]
+										}
+									],
+									"sid": 102376552259682
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 766822911663996
+										},
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 737044615672885,
+											"parameters": {
+												"variable": "Status",
+												"comparison": 0,
+												"value": "\"PLAY\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 167986178084299,
+											"parameters": {
+												"variable": "Status",
+												"value": "\"PAUSE\""
+											}
+										},
+										{
+											"callFunction": "Pomodoro_TimerControl",
+											"sid": 286306669553687,
+											"parameters": [
+												"\"PAUSE\""
+											]
+										}
+									],
+									"sid": 709777035686056
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-object-clicked",
+									"objectClass": "Mouse",
+									"sid": 194280159442876,
+									"parameters": {
+										"mouse-button": "left",
+										"click-type": "clicked",
+										"object-clicked": "btnReset"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "btnReset",
+									"sid": 926128121854096,
+									"parameters": {
+										"instance-variable": "FontSize",
+										"value": "28"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 462081457206847,
+									"parameters": {
+										"variable": "Status",
+										"value": "\"STOP\""
+									}
+								},
+								{
+									"callFunction": "Pomodoro_ChangeDuration",
+									"sid": 171139124079640,
+									"parameters": [
+										"\"RESET\""
+									]
+								},
+								{
+									"callFunction": "Pomodoro_TimerControl",
+									"sid": 689008035061183,
+									"parameters": [
+										"\"STOP\""
+									]
+								}
+							],
+							"sid": 798386202603664
+						}
+					],
+					"sid": 556021896772284
+				},
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "POMODORO :: Set Duration",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-object-clicked",
+									"objectClass": "Mouse",
+									"sid": 212132337337584,
+									"parameters": {
+										"mouse-button": "left",
+										"click-type": "clicked",
+										"object-clicked": "ChangeTimers"
+									}
+								},
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 212876522622253,
+									"parameters": {
+										"variable": "Status",
+										"comparison": 0,
+										"value": "\"STOP\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Pomodoro_ChangeDuration",
+									"sid": 873471509259814,
+									"parameters": [
+										"ChangeTimers.Operation"
+									]
+								},
+								{
+									"id": "set-size",
+									"objectClass": "ChangeTimers",
+									"sid": 718005192188775,
+									"parameters": {
+										"width": "48",
+										"height": "48"
+									}
+								}
+							],
+							"sid": 714969312996683
+						}
+					],
+					"sid": 424665022450106
+				},
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "POMODORO :: Functions",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"functionName": "Pomodoro_TimerControl",
+							"functionDescription": "",
+							"functionCategory": "",
+							"functionReturnType": "none",
+							"functionIsAsync": false,
+							"functionParameters": [
+								{
+									"name": "Command",
+									"type": "string",
+									"initialValue": "",
+									"comment": "",
+									"sid": 589859866916415
+								}
+							],
+							"eventType": "function-block",
+							"conditions": [],
+							"actions": [],
+							"sid": 797751070032444,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 390504018762829,
+											"parameters": {
+												"variable": "Command",
+												"comparison": 0,
+												"value": "\"STOP\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"type": "script",
+											"script": "TimerClock.stop();"
+										}
+									],
+									"sid": 132949435584078
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 161622078155380,
+											"parameters": {
+												"variable": "Command",
+												"comparison": 0,
+												"value": "\"START\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"type": "script",
+											"script": "TimerClock.start();"
+										}
+									],
+									"sid": 821039325502644
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 493021399435992,
+											"parameters": {
+												"variable": "Command",
+												"comparison": 0,
+												"value": "\"PAUSE\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"type": "script",
+											"script": "TimerClock.pause();"
+										}
+									],
+									"sid": 869772651796274
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 697559147286416,
+											"parameters": {
+												"variable": "Command",
+												"comparison": 0,
+												"value": "\"RESUME\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"type": "script",
+											"script": "TimerClock.resume();"
+										}
+									],
+									"sid": 320840827593046
+								}
+							]
+						},
+						{
+							"functionName": "Pomodoro_ChangeDuration",
+							"functionDescription": "",
+							"functionCategory": "",
+							"functionReturnType": "none",
+							"functionIsAsync": false,
+							"functionParameters": [
+								{
+									"name": "Command",
+									"type": "string",
+									"initialValue": "",
+									"comment": "",
+									"sid": 288809084317850
+								}
+							],
+							"eventType": "function-block",
+							"conditions": [],
+							"actions": [],
+							"sid": 191216353683980,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 612900562359933,
+											"parameters": {
+												"variable": "Command",
+												"comparison": 0,
+												"value": "\"MINUTES ADD\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "add-to-eventvar",
+											"objectClass": "System",
+											"sid": 111447738014780,
+											"parameters": {
+												"variable": "TimerDuration",
+												"value": "60"
+											}
+										}
+									],
+									"sid": 199238127487527
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 567551827001007,
+											"parameters": {
+												"variable": "Command",
+												"comparison": 0,
+												"value": "\"MINUTES SUBTRACT\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "subtract-from-eventvar",
+											"objectClass": "System",
+											"sid": 886388001369133,
+											"parameters": {
+												"variable": "TimerDuration",
+												"value": "60"
+											}
+										}
+									],
+									"sid": 318793786858903
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 559044186435329,
+											"parameters": {
+												"variable": "Command",
+												"comparison": 0,
+												"value": "\"SECONDS ADD\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "add-to-eventvar",
+											"objectClass": "System",
+											"sid": 953330002843169,
+											"parameters": {
+												"variable": "TimerDuration",
+												"value": "1"
+											}
+										}
+									],
+									"sid": 428858058417389
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 815200713352025,
+											"parameters": {
+												"variable": "Command",
+												"comparison": 0,
+												"value": "\"SECONDS SUBTRACT\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "subtract-from-eventvar",
+											"objectClass": "System",
+											"sid": 162570496888600,
+											"parameters": {
+												"variable": "TimerDuration",
+												"value": "1"
+											}
+										}
+									],
+									"sid": 253680008100796
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 681348280652993,
+											"parameters": {
+												"variable": "Command",
+												"comparison": 0,
+												"value": "\"RESET\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 334974846481568,
+											"parameters": {
+												"variable": "TimerDuration",
+												"value": "1500"
+											}
+										}
+									],
+									"sid": 934076547112524
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 121566265722178,
+											"parameters": {
+												"variable": "TimerDuration",
+												"value": "TimerDuration <= 1 ? 1 : TimerDuration >= 3600 ? 3599: TimerDuration"
+											}
+										}
+									],
+									"sid": 814880608664127
+								}
+							]
+						}
+					],
+					"sid": 103324300632051
+				},
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "POMODORO :: UI",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "group",
+							"disabled": false,
+							"title": "POMODORO :: UI :: Controls",
+							"description": "",
+							"isActiveOnStart": true,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "btnStart",
+											"sid": 750334707881097,
+											"parameters": {
+												"text": "Status = \"STOP\" ? \"PLAY\" : Status = \"PLAY\" ? \"PAUSE\" : \"PLAY\""
+											}
+										},
+										{
+											"id": "set-font-size",
+											"objectClass": "Controls",
+											"sid": 531403700123515,
+											"parameters": {
+												"size-pt": "Controls.FontSize"
+											}
+										}
+									],
+									"sid": 134702522643635
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "cursor-is-over-object",
+											"objectClass": "Mouse",
+											"sid": 590709640331352,
+											"parameters": {
+												"object": "Controls"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-opacity",
+											"objectClass": "Controls",
+											"sid": 501645172975305,
+											"parameters": {
+												"opacity": "100"
+											}
+										}
+									],
+									"sid": 337649622965842
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "cursor-is-over-object",
+											"objectClass": "Mouse",
+											"sid": 498617810570722,
+											"parameters": {
+												"object": "Controls"
+											},
+											"isInverted": true
+										}
+									],
+									"actions": [
+										{
+											"id": "set-opacity",
+											"objectClass": "Controls",
+											"sid": 435265693843223,
+											"parameters": {
+												"opacity": "50"
+											}
+										}
+									],
+									"sid": 473313939816440
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "Controls",
+											"sid": 535240924456012,
+											"parameters": {
+												"instance-variable": "FontSize",
+												"comparison": 1,
+												"value": "24"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "tween-value",
+											"objectClass": "Controls",
+											"sid": 140247230557545,
+											"behaviorType": "Tween",
+											"parameters": {
+												"tags": "\"fontSize\"",
+												"start-value": "Controls.FontSize",
+												"end-value": "24",
+												"time": "0.2",
+												"ease": "default",
+												"destroy-on-complete": "no",
+												"loop": "no",
+												"ping-pong": "no"
+											}
+										}
+									],
+									"sid": 575830347616326
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "is-playing",
+											"objectClass": "Controls",
+											"sid": 581903144367540,
+											"behaviorType": "Tween",
+											"parameters": {
+												"tags": "\"fontSize\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-instvar-value",
+											"objectClass": "Controls",
+											"sid": 922348609920216,
+											"parameters": {
+												"instance-variable": "FontSize",
+												"value": "Controls.Tween.Value(\"fontSize\")"
+											}
+										}
+									],
+									"sid": 798479282571731
+								}
+							],
+							"sid": 680530534814406
+						},
+						{
+							"eventType": "group",
+							"disabled": false,
+							"title": "POMODORO :: UI :: Clock",
+							"description": "",
+							"isActiveOnStart": true,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 679265757890943,
+											"parameters": {
+												"variable": "Status",
+												"comparison": 0,
+												"value": "\"STOP\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "tween-one-property",
+											"objectClass": "Clock",
+											"sid": 519926131492767,
+											"behaviorType": "Tween",
+											"parameters": {
+												"tags": "\"\"",
+												"property": "offsetY",
+												"end-value": "Y_Stop",
+												"time": "0.2",
+												"ease": "default",
+												"destroy-on-complete": "no",
+												"loop": "no",
+												"ping-pong": "no"
+											}
+										}
+									],
+									"sid": 747318191082859
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 456308505125491,
+											"parameters": {
+												"variable": "Status",
+												"comparison": 1,
+												"value": "\"STOP\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "tween-one-property",
+											"objectClass": "Clock",
+											"sid": 535165431428863,
+											"behaviorType": "Tween",
+											"parameters": {
+												"tags": "\"\"",
+												"property": "offsetY",
+												"end-value": "Y_Play",
+												"time": "0.2",
+												"ease": "default",
+												"destroy-on-complete": "no",
+												"loop": "no",
+												"ping-pong": "no"
+											}
+										}
+									],
+									"sid": 616835166793800
+								}
+							],
+							"sid": 970261869336509
+						},
+						{
+							"eventType": "group",
+							"disabled": false,
+							"title": "POMODORO :: UI :: Set Duration",
+							"description": "",
+							"isActiveOnStart": true,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 628929311582351,
+											"parameters": {
+												"variable": "Status",
+												"comparison": 0,
+												"value": "\"STOP\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "tween-one-property",
+											"objectClass": "ChangeTimers",
+											"sid": 476403295269996,
+											"behaviorType": "Tween",
+											"parameters": {
+												"tags": "\"\"",
+												"property": "offsetOpacity",
+												"end-value": "50",
+												"time": "0.2",
+												"ease": "default",
+												"destroy-on-complete": "no",
+												"loop": "no",
+												"ping-pong": "no"
+											}
+										}
+									],
+									"sid": 677103907642076
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 524890139616953,
+											"parameters": {
+												"variable": "Status",
+												"comparison": 1,
+												"value": "\"STOP\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "tween-one-property",
+											"objectClass": "ChangeTimers",
+											"sid": 799701615510122,
+											"behaviorType": "Tween",
+											"parameters": {
+												"tags": "\"\"",
+												"property": "offsetOpacity",
+												"end-value": "0",
+												"time": "0.2",
+												"ease": "default",
+												"destroy-on-complete": "no",
+												"loop": "no",
+												"ping-pong": "no"
+											}
+										}
+									],
+									"sid": 331794852054907
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 608492125328989,
+											"parameters": {
+												"variable": "Status",
+												"comparison": 0,
+												"value": "\"STOP\""
+											}
+										},
+										{
+											"id": "cursor-is-over-object",
+											"objectClass": "Mouse",
+											"sid": 342940987908134,
+											"parameters": {
+												"object": "ChangeTimers"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-opacity",
+											"objectClass": "ChangeTimers",
+											"sid": 311809490129555,
+											"parameters": {
+												"opacity": "100"
+											}
+										}
+									],
+									"sid": 800182653068796
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 429969036230486,
+											"parameters": {
+												"variable": "Status",
+												"comparison": 0,
+												"value": "\"STOP\""
+											}
+										},
+										{
+											"id": "is-any-playing",
+											"objectClass": "ChangeTimers",
+											"sid": 215610590715994,
+											"behaviorType": "Tween",
+											"isInverted": true
+										},
+										{
+											"id": "cursor-is-over-object",
+											"objectClass": "Mouse",
+											"sid": 634312409032224,
+											"parameters": {
+												"object": "ChangeTimers"
+											},
+											"isInverted": true
+										}
+									],
+									"actions": [
+										{
+											"id": "set-opacity",
+											"objectClass": "ChangeTimers",
+											"sid": 323177986477761,
+											"parameters": {
+												"opacity": "50"
+											}
+										}
+									],
+									"sid": 828401156602086
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-width",
+											"objectClass": "ChangeTimers",
+											"sid": 461061599982953,
+											"parameters": {
+												"comparison": 1,
+												"width": "32"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "tween-one-property",
+											"objectClass": "ChangeTimers",
+											"sid": 486139475396982,
+											"behaviorType": "Tween",
+											"parameters": {
+												"tags": "\"\"",
+												"property": "offsetWidth",
+												"end-value": "32",
+												"time": "0.2",
+												"ease": "default",
+												"destroy-on-complete": "no",
+												"loop": "no",
+												"ping-pong": "no"
+											}
+										}
+									],
+									"sid": 227826514605188
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-height",
+											"objectClass": "ChangeTimers",
+											"sid": 600500361148902,
+											"parameters": {
+												"comparison": 1,
+												"height": "32"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "tween-one-property",
+											"objectClass": "ChangeTimers",
+											"sid": 647468208714794,
+											"behaviorType": "Tween",
+											"parameters": {
+												"tags": "\"\"",
+												"property": "offsetHeight",
+												"end-value": "32",
+												"time": "0.2",
+												"ease": "default",
+												"destroy-on-complete": "no",
+												"loop": "no",
+												"ping-pong": "no"
+											}
+										}
+									],
+									"sid": 890958242305995
+								}
+							],
+							"sid": 395570126953664
+						}
+					],
+					"sid": 307367158983538
+				}
+			],
+			"sid": 193587999085659
+		}
+	],
+	"sid": 154449595278767
+}

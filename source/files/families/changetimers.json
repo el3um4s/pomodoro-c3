@@ -1,0 +1,27 @@
+{
+	"name": "ChangeTimers",
+	"plugin-id": "Sprite",
+	"sid": 436646969476465,
+	"instanceVariables": [
+		{
+			"name": "Operation",
+			"type": "string",
+			"desc": "",
+			"sid": 387028235525121
+		}
+	],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Tween",
+			"name": "Tween",
+			"sid": 126852414021838
+		}
+	],
+	"effectTypes": [],
+	"members": [
+		"Minutes_Add",
+		"Seconds_Add",
+		"Seconds_Subtract",
+		"Minutes_Subtract"
+	]
+}

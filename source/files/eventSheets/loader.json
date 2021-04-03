@@ -1,0 +1,57 @@
+{
+	"name": "Loader",
+	"events": [
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 833553312676751
+				}
+			],
+			"actions": [
+				{
+					"type": "script",
+					"script": "globalThis.Renderer = {\n\tendPomodoroTime: null\n};\n\nawait runtime.assets.loadScripts(\"renderer.js\");"
+				}
+			],
+			"sid": 883964765974351
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-loader-layout-complete",
+					"objectClass": "System",
+					"sid": 177624110886737
+				}
+			],
+			"actions": [
+				{
+					"id": "wait",
+					"objectClass": "System",
+					"sid": 585306391459546,
+					"parameters": {
+						"seconds": "2"
+					}
+				},
+				{
+					"id": "wait-for-previous-actions",
+					"objectClass": "System",
+					"sid": 521488287801503
+				},
+				{
+					"id": "go-to-layout",
+					"objectClass": "System",
+					"sid": 779274404361481,
+					"parameters": {
+						"layout": "Main"
+					}
+				}
+			],
+			"sid": 263201953777802
+		}
+	],
+	"sid": 535260321553206
+}

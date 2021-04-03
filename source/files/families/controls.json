@@ -1,0 +1,25 @@
+{
+	"name": "Controls",
+	"plugin-id": "Text",
+	"sid": 211128347145043,
+	"instanceVariables": [
+		{
+			"name": "FontSize",
+			"type": "number",
+			"desc": "",
+			"sid": 224580488035352
+		}
+	],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Tween",
+			"name": "Tween",
+			"sid": 511771962220314
+		}
+	],
+	"effectTypes": [],
+	"members": [
+		"btnStart",
+		"btnReset"
+	]
+}

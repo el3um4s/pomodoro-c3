@@ -1,0 +1,34 @@
+{
+  "name": "pomodoro-c3",
+  "version": "21.04.03.01",
+  "description": "A pomodoro clock living in Windows taskbar. It shows notification when a pomodoro finishes.",
+  "keywords": [
+    "pomodoro",
+    "construct3",
+    "html5",
+    "electron",
+    "taskbar",
+    "windows"
+  ],
+  "repository": "github:el3um4s/pomodoro-c3",
+  "bugs": "https://github.com/el3um4s/pomodoro-c3/issues",
+  "author": {
+    "name": "Samuele de Tomasi",
+    "email": "samuele@stranianelli.com",
+    "url": "https://blog.stranianelli.com/"
+  },
+  "funding": {
+    "type": "patreon",
+    "url": "https://www.patreon.com/el3um4s"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/el3um4s/pomodoro-c3",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "electron": "^12.0.2"
+  }
+}
