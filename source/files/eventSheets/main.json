@@ -64,87 +64,13 @@
 									"sid": 505471554212400
 								}
 							],
-							"actions": [],
-							"sid": 163048920657344,
-							"children": [
+							"actions": [
 								{
-									"eventType": "variable",
-									"name": "TimeToPause",
-									"type": "number",
-									"initialValue": "0",
-									"comment": "",
-									"isStatic": false,
-									"isConstant": false,
-									"sid": 587286250922236
-								},
-								{
-									"eventType": "block",
-									"conditions": [
-										{
-											"id": "compare-eventvar",
-											"objectClass": "System",
-											"sid": 806201170849109,
-											"parameters": {
-												"variable": "Status",
-												"comparison": 1,
-												"value": "\"STOP\""
-											}
-										}
-									],
-									"actions": [
-										{
-											"type": "script",
-											"script": "localVars.TimeToPause = (runtime.globalVars.TimerDuration * 1000) - Globals.milliseconds;"
-										}
-									],
-									"sid": 486538131008813
-								},
-								{
-									"eventType": "block",
-									"conditions": [
-										{
-											"id": "else",
-											"objectClass": "System",
-											"sid": 674403976834856
-										}
-									],
-									"actions": [
-										{
-											"id": "set-eventvar-value",
-											"objectClass": "System",
-											"sid": 434515578665131,
-											"parameters": {
-												"variable": "TimeToPause",
-												"value": "TimerDuration*1000"
-											}
-										}
-									],
-									"sid": 119830228918298
-								},
-								{
-									"eventType": "block",
-									"conditions": [],
-									"actions": [
-										{
-											"id": "set-text",
-											"objectClass": "countSeconds",
-											"sid": 375605794431383,
-											"parameters": {
-												"text": "zeropad(Date.ToTimerSeconds(TimeToPause), 2)"
-											}
-										},
-										{
-											"id": "set-text",
-											"objectClass": "countMinutes",
-											"sid": 441711104778452,
-											"parameters": {
-												"text": "Date.ToTimerMinutes(TimeToPause)"
-											}
-										}
-									],
-									"sid": 359439408265357
+									"callFunction": "Pomodoro_ClockUpdate",
+									"sid": 584583857147814
 								}
-							]
+							],
+							"sid": 163048920657344
 						}
 					],
 					"sid": 601280430258227
@@ -412,9 +338,100 @@
 					"isActiveOnStart": true,
 					"children": [
 						{
+							"functionName": "Pomodoro_ClockUpdate",
+							"functionDescription": "",
+							"functionCategory": "Pomodoro",
+							"functionReturnType": "none",
+							"functionIsAsync": false,
+							"functionParameters": [],
+							"eventType": "function-block",
+							"conditions": [],
+							"actions": [],
+							"sid": 400275977941827,
+							"children": [
+								{
+									"eventType": "variable",
+									"name": "TimeToPause",
+									"type": "number",
+									"initialValue": "0",
+									"comment": "",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 883362773493663
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 433880756135497,
+											"parameters": {
+												"variable": "Status",
+												"comparison": 1,
+												"value": "\"STOP\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"type": "script",
+											"script": "localVars.TimeToPause = (runtime.globalVars.TimerDuration * 1000) - Globals.milliseconds;"
+										}
+									],
+									"sid": 420340447170242
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 921071412981280
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 663664808548125,
+											"parameters": {
+												"variable": "TimeToPause",
+												"value": "TimerDuration*1000"
+											}
+										}
+									],
+									"sid": 792406744343807
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "countSeconds",
+											"sid": 754513415892814,
+											"parameters": {
+												"text": "zeropad(Date.ToTimerSeconds(TimeToPause), 2)"
+											}
+										},
+										{
+											"id": "set-text",
+											"objectClass": "countMinutes",
+											"sid": 809722292375365,
+											"parameters": {
+												"text": "Date.ToTimerMinutes(TimeToPause)"
+											}
+										}
+									],
+									"sid": 668328359739008
+								}
+							]
+						},
+						{
 							"functionName": "Pomodoro_TimerControl",
 							"functionDescription": "",
-							"functionCategory": "",
+							"functionCategory": "Pomodoro",
 							"functionReturnType": "none",
 							"functionIsAsync": false,
 							"functionParameters": [
@@ -524,7 +541,7 @@
 						{
 							"functionName": "Pomodoro_ChangeDuration",
 							"functionDescription": "",
-							"functionCategory": "",
+							"functionCategory": "Pomodoro",
 							"functionReturnType": "none",
 							"functionIsAsync": false,
 							"functionParameters": [

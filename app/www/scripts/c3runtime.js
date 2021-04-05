@@ -2866,21 +2866,21 @@ true,result:this.OTHER})}if(C3.IsFiniteNumber(property))property=C3.Behaviors.Tw
 		C3.Behaviors.Tween,
 		C3.Plugins.System.Cnds.IsGroupActive,
 		C3.Plugins.System.Cnds.EveryTick,
+		C3.Plugins.Mouse.Cnds.OnObjectClicked,
+		C3.Plugins.Text.Acts.SetInstanceVar,
 		C3.Plugins.System.Cnds.CompareVar,
-		C3.ScriptsInEvents.Main_Event4_Act1,
-		C3.Plugins.System.Cnds.Else,
 		C3.Plugins.System.Acts.SetVar,
+		C3.Plugins.System.Cnds.Else,
+		C3.Plugins.Sprite.Acts.SetSize,
+		C3.ScriptsInEvents.Main_Event14_Act1,
 		C3.Plugins.Text.Acts.SetText,
 		C3.Plugins.System.Exps.zeropad,
 		C3.Plugins.Date.Exps.ToTimerSeconds,
 		C3.Plugins.Date.Exps.ToTimerMinutes,
-		C3.Plugins.Mouse.Cnds.OnObjectClicked,
-		C3.Plugins.Text.Acts.SetInstanceVar,
-		C3.Plugins.Sprite.Acts.SetSize,
-		C3.ScriptsInEvents.Main_Event17_Act1,
 		C3.ScriptsInEvents.Main_Event18_Act1,
 		C3.ScriptsInEvents.Main_Event19_Act1,
 		C3.ScriptsInEvents.Main_Event20_Act1,
+		C3.ScriptsInEvents.Main_Event21_Act1,
 		C3.Plugins.System.Acts.AddVar,
 		C3.Plugins.System.Acts.SubVar,
 		C3.Plugins.Text.Acts.SetFontSize,
@@ -3035,7 +3035,21 @@ true,result:this.OTHER})}if(C3.IsFiniteNumber(property))property=C3.Behaviors.Tw
 	self.C3_ExpressionFuncs = [
 		() => "POMODORO",
 		() => "POMODORO :: Clock",
+		() => "POMODORO :: Controls",
+		() => 28,
 		() => "STOP",
+		() => "PLAY",
+		() => "START",
+		() => "PAUSE",
+		() => "RESUME",
+		() => "RESET",
+		() => "POMODORO :: Set Duration",
+		p => {
+			const n0 = p._GetNode(0);
+			return () => n0.ExpInstVar_Family();
+		},
+		() => 48,
+		() => "POMODORO :: Functions",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() * 1000);
@@ -3051,20 +3065,6 @@ true,result:this.OTHER})}if(C3.IsFiniteNumber(property))property=C3.Behaviors.Tw
 			const v1 = p._GetNode(1).GetVar();
 			return () => f0(v1.GetValue());
 		},
-		() => "POMODORO :: Controls",
-		() => 28,
-		() => "PLAY",
-		() => "START",
-		() => "PAUSE",
-		() => "RESUME",
-		() => "RESET",
-		() => "POMODORO :: Set Duration",
-		p => {
-			const n0 = p._GetNode(0);
-			return () => n0.ExpInstVar_Family();
-		},
-		() => 48,
-		() => "POMODORO :: Functions",
 		() => "MINUTES ADD",
 		() => 60,
 		() => "MINUTES SUBTRACT",

@@ -1,6 +1,6 @@
 import Globals from "./globals.js";
 
-const everyMilliseconds = 1000;
+const everyMilliseconds = 500;
 
 export function start() {
 	Globals.milliseconds = 0;
@@ -26,6 +26,7 @@ export function resume() {
 }
 
 function secondsElapsed(){
+	g_runtime.callFunction("Pomodoro_ClockUpdate");
 	const millis = Date.now() - Globals.start - Globals.millisecondsPaused;
 	if ( !Globals.paused ) { 
 		Globals.milliseconds = millis;

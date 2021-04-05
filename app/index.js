@@ -58,9 +58,9 @@ app.on('ready', () => {
         }
     });
 
-    tray.on('balloon-click', (event) => {
-            mainWindow.show();
-    });
+    // tray.on('balloon-click', (event) => {
+    //         mainWindow.show();
+    // });
 })
 
 ipcMain.on('end-pomodoro-time', (event) => {
@@ -70,4 +70,8 @@ ipcMain.on('end-pomodoro-time', (event) => {
         title: "Pomodoro c3",
         content: "Pomodoro Finished"
     });
+});
+
+ipcMain.on('show-pomodoro-clock', (event) =>{
+    mainWindow.show();
 });

@@ -240,6 +240,11 @@
 					"name": "renderer.js",
 					"type": "application/javascript",
 					"sid": 294026176488744
+				},
+				{
+					"name": "icon-notification.png",
+					"type": "image/png",
+					"sid": 629241338682098
 				}
 			],
 			"subfolders": []
@@ -256,7 +261,7 @@
 	},
 	"properties": {
 		"description": "",
-		"version": "demo-v2021.04.03",
+		"version": "demo-v2021.04.05",
 		"author": "Samuele (Strani Anelli) De Tomasi",
 		"authorEmail": "samuele@stranianelli.com",
 		"authorWebsite": "https://blog.stranianelli.com/",
