@@ -10,6 +10,18 @@ Readme: [Free post (Patreon)](https://www.patreon.com/posts/pomodoro-clock-49716
 
 ### How to use
 
+Electron must be installed
+
+```
+npm install -g electron-installer-windows
+```
+https://github.com/electron-userland/electron-installer-windows#readme
+
+
+For other operating systems, see the official repository.
+https://github.com/electron-userland
+
+
 In folder `app`, run
 
 ```
@@ -21,3 +33,6 @@ Then run
 ```
 npm run start
 ```
+
+
+After installing Electron and the app, i created a .batch file, to make it easier to open the app, i also created an icon and added it to the .bat
