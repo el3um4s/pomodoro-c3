@@ -29,6 +29,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "electron": "^12.0.2"
+    "electron": "^12.1.0"
   }
 }
